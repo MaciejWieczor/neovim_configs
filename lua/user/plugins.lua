@@ -96,6 +96,10 @@ return packer.startup(function(use)
   requires = { {'nvim-lua/plenary.nvim'} }
 } 
 
+ use {
+     'christoomey/vim-tmux-navigator'
+ }
+
   use {
     'nvim-tree/nvim-tree.lua'}
   -- require('nvim_comment').setup()

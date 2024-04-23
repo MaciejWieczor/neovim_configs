@@ -36,7 +36,7 @@ keymap("n", "<Tab>", ":bnext<CR>", opts)
 keymap("n", "<S-Tab>", ":bprevious<CR>", opts)
 keymap("n", "<C-w>", ":bd<CR>", opts)
 
--- Invisible slash search 
+-- Invisible slash search
 keymap("n", "<F3>", ":set hlsearch! hlsearch?<CR>", opts)
 
 -- Insert --
@@ -66,7 +66,15 @@ keymap("t", "<Esc>", "<C-\\><C-n>", term_opts)
 keymap("t", "M-[", "<Esc>", term_opts)
 keymap("t", "<C-v><Esc>", "<Esc>", term_opts)
 
-keymap("n", "<F5>", ":VimwikiAll2HTML<CR>", opts)
+-- keymap("n", "<F5>", ":!vimwiki_html &<CR>", opts)
 keymap("n", "<C-x>s", "z=", opts)
 
 keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
+-- html highlight
+-- keymap("v", "<Leader>gy", ":\'\<,'\>s/\%V.*\%V./\<mark style=\'background: #eed49f;\'\>&\</mark\>/<CR>", opts)
+-- keymap("v", "<Leader>gy", ":'<,'>s/\%V.*\%V./[[&]]/", opts)
+-- vim.keymap.set("v", "gy", ":s/\\%V.*\\%V./<mark style='background: #eed49f;'>&<\\/mark><CR>")
+-- vim.keymap.set("v", "gb", ":s/\\%V.*\\%V./<mark style='background: #8aadf4;'>&<\\/mark><CR>")
+-- vim.keymap.set("v", "gr", ":s/\\%V.*\\%V./<mark style='background: #ed8796;'>&<\\/mark><CR>")
+
+keymap("n", "<F5>", ":silent !vimwiki_html_single %:p<CR>", opts)

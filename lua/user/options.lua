@@ -3,7 +3,7 @@ local options = {
   spellsuggest = {"best", 9},
   backup = false,                          -- creates a backup file
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
-  cmdheight = 2,                           -- more space in the neovim command line for displaying messages
+  cmdheight = 1,                           -- more space in the neovim command line for displaying messages
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
   conceallevel = 0,                        -- so that `` is visible in markdown files
   fileencoding = "utf-8",                  -- the encoding written to a file
@@ -23,9 +23,9 @@ local options = {
   undofile = true,                         -- enable persistent undo
   updatetime = 300,                        -- faster completion (4000ms default)
   writebackup = false,                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
-  expandtab = true,                        -- convert tabs to spaces
-  shiftwidth = 4,                          -- the number of spaces inserted for each indentation
-  tabstop = 4,                             -- insert 2 spaces for a tab
+  -- noexpandtab = true,                        -- convert tabs to spaces
+  shiftwidth = 8,                          -- the number of spaces inserted for each indentation
+  tabstop = 8,                             -- insert 2 spaces for a tab
   cursorline = true,                       -- highlight the current line
   number = true,                           -- set numbered lines
   relativenumber = false,                  -- set relative numbered lines
@@ -35,7 +35,6 @@ local options = {
   scrolloff = 8,                           -- is one of my fav
   sidescrolloff = 8,
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
-  foldmethod = "indent",
 }
 
 vim.opt.shortmess:append "c"
@@ -44,10 +43,12 @@ vim.keymap.set("n", "<F11>", function()
   vim.o.spell = not vim.o.spell
   print("spell: " .. tostring(vim.o.spell))
 end)
-
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
@@ -60,3 +61,7 @@ vim.cmd "let g:vimwiki_key_mappings = {}"
 vim.cmd "let g:vimwiki_key_mappings.table_mappings = 0"
 vim.cmd "set foldlevel=99" -- This opens all folds on file open
 vim.cmd "let g:airline_powerline_fonts = 1"
+vim.cmd "set textwidth=0"
+vim.cmd "set wrapmargin=1"
+vim.cmd "set formatoptions+=t"
+vim.cmd "set formatoptions-=l"

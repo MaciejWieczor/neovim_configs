@@ -59,30 +59,20 @@ return packer.startup(function(use)
   use "L3MON4D3/LuaSnip" --snippet engine
   use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
-    -- LSP
-  use "neovim/nvim-lspconfig" -- enable LSP
-  use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+use {
+    "neovim/nvim-lspconfig",
+    "ranjithshegde/ccls.nvim",
+}
 
     -- Colorizer
   use "norcalli/nvim-colorizer.lua"
 
-    -- Ranger
---  use "kevinhwang91/rnvimr"
-
     -- Lualine
-
   use "kdheepak/tabline.nvim"
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
-
-    -- Marks
-  use "chentoast/marks.nvim"
-
-  use "emakman/neovim-latex-previewer"
-
-  use "airblade/vim-gitgutter"
 
   use "nvim-treesitter/nvim-treesitter"
 
@@ -92,19 +82,72 @@ return packer.startup(function(use)
 
  use {
   'nvim-telescope/telescope.nvim', tag = '0.1.1',
--- or                            , branch = '0.1.x',
   requires = { {'nvim-lua/plenary.nvim'} }
 } 
 
- use {
-     'christoomey/vim-tmux-navigator'
- }
+  use { 'alexghergh/nvim-tmux-navigation', config = function()
+        require'nvim-tmux-navigation'.setup {
+            disable_when_zoomed = true, -- defaults to false
+            keybindings = {
+                left = "<C-h>",
+                down = "<C-j>",
+                up = "<C-k>",
+                right = "<C-l>",
+                last_active = "<C-\\>",
+                next = "<C-Space>",
+            }
+        }
+    end
+}
+
+use({'jakewvincent/mkdnflow.nvim',
+    config = function()
+        require('mkdnflow').setup()
+    end
+})
+
+  use 'anuvyklack/pretty-fold.nvim'
+
+  use 'preservim/vim-markdown'
 
   use {
-    'nvim-tree/nvim-tree.lua'}
-  -- require('nvim_comment').setup()
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
+    'AntonVanAssche/md-headers.nvim',
+    requires = {
+        'nvim-lua/plenary.nvim'
+    }
+}
+
+use 'simrat39/symbols-outline.nvim'
+
+use {
+    'johnfrankmorgan/whitespace.nvim',
+    config = function ()
+        require('whitespace-nvim').setup({
+            -- configuration options and their defaults
+
+            -- `highlight` configures which highlight is used to display
+            -- trailing whitespace
+            highlight = 'DiffDelete',
+
+            -- `ignored_filetypes` configures which filetypes to ignore when
+            -- displaying trailing whitespace
+            ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help' },
+
+            -- `ignore_terminal` configures whether to ignore terminal buffers
+            ignore_terminal = true,
+        })
+
+        -- remove trailing whitespace with a keybinding
+        vim.keymap.set('n', '<Leader>t', require('whitespace-nvim').trim)
+    end
+}
+
+use 'mzlogin/vim-markdown-toc'
+
+  use {
+    'nvim-tree/nvim-tree.lua'
+}
+
   if PACKER_BOOTSTRAP then
     require("packer").sync()
   end
